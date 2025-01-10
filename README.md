@@ -43,3 +43,18 @@ This is the **backend** repository for the Online grocery ecommerce. It handles 
 
 
 ## **API Endpoints**
+
+
+
+### **Authentication**
+- **Register a User**  
+  `http://localhost:5000/api/auth/regiter`  
+  Registers a new user in the system.
+
+- **Login**  
+  `POST /users`  
+  Authenticates a user and provides a JWT token.
+
+- **Logout**  
+  `POST /logout`  
+  Logs out the user and clears the authentication token from cookies.

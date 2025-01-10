@@ -8,6 +8,8 @@ const port = process.env.PORT || 5000;
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+const authRoute= require("./Routes/auth");
+const database = require('./database/Database');
 
 
 const allowedOrigins = [
@@ -27,10 +29,15 @@ app.use(cors({
 }));
 
 
+
+app.use("/api/auth", authRoute);
+
 app.get('/', (req, res) => {
     res.json('Initial  api is working *****************')
 });
 
+
 app.listen(port, () => {
-    console.log(`product is getting warmer in port: ${port}`);
+    database()
+    console.log(`api running  in port: ${port}`);
 })
