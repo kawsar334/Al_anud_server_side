@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const database = ()=>{
 
-    mongoose.connect("mongodb+srv://kawsar:kawsar@cluster0.igjje.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", 
+    mongoose.connect(process.env.DB, 
     { 
         // useNewUrlParser: true,
         //  useUnifiedTopology: true,
@@ -14,6 +14,15 @@ const database = ()=>{
 }
 
 
+const connectDatabase =()=>{
+
+    mongoose.connect(process.env.MONGOURL, {}
+    ).then(() => {
+        console.log("database connected ")
+    }).catch((err) => {
+        console.log(err);
+    });
+}
 
 module.exports = database; 
 

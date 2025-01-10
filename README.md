@@ -48,38 +48,38 @@ This is the **backend** repository for the Online grocery ecommerce. It handles 
 
 ### **Authentication** ======================================== ##
 - **Register a User  ##POST##**  
-  `http://localhost:5000/api/auth/register`  
+  `https://server-anud.vercel.app/api/auth/register`  
   Registers a new user in the system.
 
 - **Login  ##POST##**  
-   `http://localhost:5000/api/auth/login`
+   `https://server-anud.vercel.app/api/auth/login`
   Authenticates a user and provides a JWT token.
   - **Login with google information store on database. ##POST##**  
-   `http://localhost:5000/api/auth/google`
+   `https://server-anud.vercel.app/api/auth/google`
   
 
 - **Logout ##POST##**  
-  `http://localhost:5000/api/auth/logout`  
+  `https://server-anud.vercel.app/api/auth/logout`  
   Logs out the user and clears the authentication token from cookies.
 
   ## ===========================user Related APIS=========================== ##
   - **UPDATE a User BY userId ##PUT##**  
-  `http://localhost:5000/api/user/update/{id}`  
+  `https://server-anud.vercel.app/api/user/update/{id}`  
  - **delete a user by ID ##DELETE##**  
-  `http://localhost:5000/api/user/{id}`  
+  `https://server-anud.vercel.app/api/user/{id}`  
 
  - **get single user by ID ##Get##**  
-  `http://localhost:5000/api/user/find/{id}`
+  `https://server-anud.vercel.app/api/user/find/{id}`
 
 
  - **get All user  ##Get##**  
-  `http://localhost:5000/api/user/userList`
+  `https://server-anud.vercel.app/api/user/userList`
 
  - **get user stats  ##Get##**  
-  `http://localhost:5000/api/user/stats`
+  `https://server-anud.vercel.app/api/user/stats`
 
  - **updated a specefic user profile picture  ##Put##**  
-  `http://localhost:5000/api/user/updatedprofilepic/{userId}`
+  `https://server-anud.vercel.app/api/user/updatedprofilepic/{userId}`
 
 
 
@@ -87,19 +87,19 @@ This is the **backend** repository for the Online grocery ecommerce. It handles 
 
 
  - **create a New product   ##Post##**  
-  `http://localhost:5000/api/product/createproduct`
+  `https://server-anud.vercel.app/api/product/createproduct`
 
 - **update specepic  product  by ID ##Put##**  
-  `http://localhost:5000/api/product/updateProduct/{id}`
+  `https://server-anud.vercel.app/api/product/updateProduct/{id}`
 
 
 - **delete specepic  product  by ID ##delete##**  
-  `http://localhost:5000/api/product/{id}`
+  `https://server-anud.vercel.app/api/product/{id}`
 
 - **Get specepic  product  by ID ##Get##**  
-  `http://localhost:5000/api/find/product/{id}`
+  `https://server-anud.vercel.app/api/find/product/{id}`
 
 - **Get All  product   ##Get##**  
-  `http://localhost:5000/api/find/product/productList`
+  `https://server-anud.vercel.app/api/product/productList`
 
 

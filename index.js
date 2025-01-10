@@ -2,7 +2,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 const app = express();
@@ -15,7 +14,6 @@ const productRoute = require("./Routes/product");
 
 const database = require('./database/Database');
 const bodyParser = require("body-parser");
-
 app.use(bodyParser.json());
 const allowedOrigins = [
     'http://localhost:5173',
@@ -46,7 +44,7 @@ app.get('/', (req, res) => {
 });
 
 
+database()
 app.listen(port, () => {
-    database()
     console.log(`api running  in port: ${port}`);
 })
