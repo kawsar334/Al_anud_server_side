@@ -46,15 +46,60 @@ This is the **backend** repository for the Online grocery ecommerce. It handles 
 
 
 
-### **Authentication**
-- **Register a User**  
-  `http://localhost:5000/api/auth/regiter`  
+### **Authentication** ======================================== ##
+- **Register a User  ##POST##**  
+  `http://localhost:5000/api/auth/register`  
   Registers a new user in the system.
 
-- **Login**  
-  `POST /users`  
+- **Login  ##POST##**  
+   `http://localhost:5000/api/auth/login`
   Authenticates a user and provides a JWT token.
+  - **Login with google information store on database. ##POST##**  
+   `http://localhost:5000/api/auth/google`
+  
 
-- **Logout**  
-  `POST /logout`  
+- **Logout ##POST##**  
+  `http://localhost:5000/api/auth/logout`  
   Logs out the user and clears the authentication token from cookies.
+
+  ## ===========================user Related APIS=========================== ##
+  - **UPDATE a User BY userId ##PUT##**  
+  `http://localhost:5000/api/user/update/{id}`  
+ - **delete a user by ID ##DELETE##**  
+  `http://localhost:5000/api/user/{id}`  
+
+ - **get single user by ID ##Get##**  
+  `http://localhost:5000/api/user/find/{id}`
+
+
+ - **get All user  ##Get##**  
+  `http://localhost:5000/api/user/userList`
+
+ - **get user stats  ##Get##**  
+  `http://localhost:5000/api/user/stats`
+
+ - **updated a specefic user profile picture  ##Put##**  
+  `http://localhost:5000/api/user/updatedprofilepic/{userId}`
+
+
+
+  ## ===========================PRODUCT Related APIS=========================== ##
+
+
+ - **create a New product   ##Post##**  
+  `http://localhost:5000/api/product/createproduct`
+
+- **update specepic  product  by ID ##Put##**  
+  `http://localhost:5000/api/product/updateProduct/{id}`
+
+
+- **delete specepic  product  by ID ##delete##**  
+  `http://localhost:5000/api/product/{id}`
+
+- **Get specepic  product  by ID ##Get##**  
+  `http://localhost:5000/api/find/product/{id}`
+
+- **Get All  product   ##Get##**  
+  `http://localhost:5000/api/find/product/productList`
+
+

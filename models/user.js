@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Email is required"],
-        unique: true,
+        // unique: true,
         match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
     },
     password: {
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://via.placeholder.com/150"
     },
-    
+
    
 },{timestamps:true});
 

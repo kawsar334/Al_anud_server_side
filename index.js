@@ -9,9 +9,14 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 const authRoute= require("./Routes/auth");
+const userRoute = require("./Routes/user"); 
+const productRoute = require("./Routes/product"); 
+
+
 const database = require('./database/Database');
+const bodyParser = require("body-parser");
 
-
+app.use(bodyParser.json());
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
@@ -31,6 +36,10 @@ app.use(cors({
 
 
 app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
+app.use("/api/product", productRoute);
+
+
 
 app.get('/', (req, res) => {
     res.json('Initial  api is working *****************')

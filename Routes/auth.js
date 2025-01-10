@@ -1,21 +1,16 @@
 
 
 const express = require("express");
-const { Register, Login } = require("../controllers/auth");
 const route = express.Router();
-
-
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const { Register, Login, googleLogin, logout } = require("../controllers/auth");
 
 
 
-route.post("/regiter",Register);
+
+route.post("/register",Register);
 route.post("/login", Login);
-
-
-
+route.post("/google", googleLogin);
+route.post("/logout", logout);
 
 
 module.exports = route;

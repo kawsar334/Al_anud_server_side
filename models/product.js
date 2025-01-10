@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: [true, "Product name is required"],
@@ -13,24 +17,24 @@ const productSchema = new mongoose.Schema({
         minlength: [10, "Description must be at least 10 characters long"]
     },
     price: {
-        type: Number,
+        type: Number, 
         required: [true, "Product price is required"],
         min: [0, "Price cannot be negative"]
     },
     category: {
         type: String,
         required: [true, "Category is required"],
-        enum: ["Electronics", "Clothing", "Home", "Books", "Sports", "Other"], // Example categories
+        enum: ["Electronics", "Clothing", "Home", "Books", "Sports", "Other"], 
         default: "Other"
     },
     stock: {
-        type: Number,
+        type: Number, 
         required: [true, "Stock count is required"],
         min: [0, "Stock cannot be negative"],
         default: 0
     },
     image: {
-        type: String, // URL of the product image
+        type: String, 
         required: [true, "Product image is required"]
     },
     createdAt: {

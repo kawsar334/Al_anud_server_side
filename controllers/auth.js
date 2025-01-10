@@ -5,6 +5,8 @@ const User = require("../models/user");
 const options = require("../middleware/options");
 
 
+
+// Register
 const Register  =async(req, res,next)=>{
    try{
     const {email, password} = req.body;
@@ -23,16 +25,16 @@ const Register  =async(req, res,next)=>{
         });
 
         const user = await newUser.save();
-        res.json(user) 
-        return res.status(201).json(SuccessResponse(201, "Registration successful", user));
+        return res.status(201).json(SuccessResponse(201, "Registration successful", user))
     }
-
    }catch(err){
     console.log(err)
        return res.status(400).json(ErrorResponse(400, err))
    }
 }
 
+
+// login 
 
 const Login = async(req, res, next)=>{
     try{
@@ -60,8 +62,69 @@ const Login = async(req, res, next)=>{
         console.log(err)
         return res.status(400).json(ErrorResponse(400, err))
     }
-}
+};
 
 
+//login with google functionality 
+const googleLogin = async (req, res, next) => {
+    try {
+        const { email, name, picture } = req.body; 
 
-module.exports={Register,Login}
+        if (!email) {
+            return res.status(400).json(ErrorResponse(400, "Email is required"));
+        }
+        let user = await User.findOne({ email });
+        if (user) {
+            const token = jwt.sign(
+                { userId: user._id, email: user.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "1h" }
+            );
+
+            return res
+                .cookie("token", token, cookieOptions)
+                .status(200)
+                .json(SuccessResponse(200, "Login successful", { token, user }));
+        } else {
+            const newUser = new User({
+                name,
+                email,
+                picture,
+                password: "",
+                role: "user",
+            });
+
+            user = await newUser.save();
+
+            const token = jwt.sign(
+                { userId: user._id, email: user.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "1h" }
+            );
+
+            return res
+                .cookie("token", token, options)
+                .status(201)
+                .json(SuccessResponse(201, "Registration and login successful", { token, user }));
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json(ErrorResponse(500, "Internal Server Error"));
+    }
+};
+
+const logout = (req, res, next) => {
+    try {
+        res.cookie("token", "", {
+            expires: new Date(0),
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production" 
+        });
+        return res.status(200).json(SuccessResponse(200, "Logout successful"));
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(ErrorResponse(500, "Internal Server Error"));
+    }
+};
+
+module.exports = { Register, Login, googleLogin, logout }
