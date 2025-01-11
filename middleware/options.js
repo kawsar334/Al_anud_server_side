@@ -5,6 +5,7 @@ const options = {
     sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     maxAge: 3600000, 
     // sameSite: "Lax", 
+    // domain: "http://localhost:5174"
 
 }
 

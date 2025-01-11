@@ -10,7 +10,6 @@ const options = require("../middleware/options");
 const Register  =async(req, res,next)=>{
    try{
     const {email, password} = req.body;
-
     const UserExist =await User.findOne({email:req.body.email});
     if(UserExist){
       return res.status(400).json(ErrorResponse(400,"user Already Exists"))
@@ -68,7 +67,7 @@ const Login = async(req, res, next)=>{
 //login with google functionality 
 const googleLogin = async (req, res, next) => {
     try {
-        const { email, name, picture } = req.body; 
+        const { email, name, photoURL } = req.body; 
 
         if (!email) {
             return res.status(400).json(ErrorResponse(400, "Email is required"));
@@ -80,17 +79,16 @@ const googleLogin = async (req, res, next) => {
                 process.env.JWT_SECRET,
                 { expiresIn: "1h" }
             );
-
             return res
-                .cookie("token", token, cookieOptions)
+                .cookie("token", token, options)
                 .status(200)
                 .json(SuccessResponse(200, "Login successful", { token, user }));
         } else {
             const newUser = new User({
                 name,
                 email,
-                picture,
-                password: "",
+                photoURL,
+                password: "google",
                 role: "user",
             });
 
