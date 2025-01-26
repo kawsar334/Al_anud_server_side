@@ -12,7 +12,7 @@ const Register  =async(req, res,next)=>{
     const {email, password} = req.body;
     const UserExist =await User.findOne({email:req.body.email});
     if(UserExist){
-      return res.status(400).json(ErrorResponse(400,"user Already Exists"))
+        return res.status(400).json(ErrorResponse(400,"user Already Exists"))
     }else{
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -20,9 +20,8 @@ const Register  =async(req, res,next)=>{
             ...req.body,
             password: hashedPassword,
             role: "user"
-
+            
         });
-
         const user = await newUser.save();
         return res.status(201).json(SuccessResponse(201, "Registration successful", user))
     }
@@ -75,7 +74,7 @@ const googleLogin = async (req, res, next) => {
         let user = await User.findOne({ email });
         if (user) {
             const token = jwt.sign(
-                { userId: user._id, email: user.email },
+                { role:user.role, id:user._id},
                 process.env.JWT_SECRET,
                 { expiresIn: "1h" }
             );
@@ -95,10 +94,11 @@ const googleLogin = async (req, res, next) => {
             user = await newUser.save();
 
             const token = jwt.sign(
-                { userId: user._id, email: user.email },
+                { role: user.role, id: user._id },
                 process.env.JWT_SECRET,
                 { expiresIn: "1h" }
             );
+          
 
             return res
                 .cookie("token", token, options)

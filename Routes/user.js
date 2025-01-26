@@ -9,25 +9,28 @@ const {
     getSingleUser,
     getAllUsers,
     getUserStats,
-    updateProfilePicture
+    updateProfilePicture,
+    makeAdmin,
 } = require("../controllers/user");
+const { verifyAdmin } = require("../middleware/jwt");
 
 // Route to update a user by ID
-router.put("/update/:id", updateUser);
+router.put("/update/:id", verifyAdmin, updateUser);
 
 // Route to delete a user by ID
-router.delete("/:id", deleteUser);
+router.delete("/:id", verifyAdmin, deleteUser);
 
 // Route to get a single user by ID
-router.get("/find/:id", getSingleUser);
+router.get("/find/:id", verifyAdmin, getSingleUser);
 
 // Route to get all users
-router.get("/userList", getAllUsers);
+router.get("/userList", verifyAdmin, getAllUsers);
 // Route to get user stats
-router.get("/stats", getUserStats);
+router.get("/stats", verifyAdmin, getUserStats);
 // updateProfilePicture
 router.put("/updatedprofilepic/:userId", updateProfilePicture);
-
+// convert user to admin
+router.put("/makeadmin/:id", verifyAdmin, makeAdmin)
 
 
 module.exports = router;

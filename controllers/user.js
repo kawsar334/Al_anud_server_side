@@ -2,6 +2,7 @@
 
 const User = require("../models/user");
 const { SuccessResponse, ErrorResponse } = require("../middleware/customMessage");
+const product = require("../models/product");
 
 // Update user
 const updateUser = async (req, res, next) => {
@@ -70,6 +71,19 @@ const getAllUsers = async (req, res, next) => {
 // Get user stats (e.g., total number of users, etc.)
 const getUserStats = async (req, res, next) => {
     try {
+
+        const products = await product.find()
+        const productStats = await product.aggregate([
+            {
+                $group: {
+                    _id: null, 
+                    totalProducts: { $sum: 1 },
+                    totalPrice: { $sum: "$price" }, 
+                },
+            },
+        ])
+
+        const users = await User.find().sort({createdAt: -1});
         const totalUsers = await User.countDocuments();
         const usersByRole = await User.aggregate([
             {
@@ -81,8 +95,12 @@ const getUserStats = async (req, res, next) => {
         ]);
 
         const stats = {
+            productStats,
+            totalProducts: productStats[0]?.totalProducts || 0, 
+            products,
             totalUsers,
-            usersByRole
+            usersByRole,
+            users,
         };
 
         return res.status(200).json(SuccessResponse(200, "User stats fetched successfully", stats ));
@@ -124,6 +142,19 @@ const updateProfilePicture = async (req, res) => {
 }
 
 
+const makeAdmin = async(req, res, next)=>{
+    try{
+        const user = await User.findByIdAndUpdate(req.params.id,{
+            role: "admin"
+        },{new:true})
+        return res.status(200).json(SuccessResponse(200,  "User Role changes succesfully ", user));
+       
+    }catch(err){
+        console.error(err);
+        return res.status(500).json(ErrorResponse(500, "Error making user admin"));
+    }
+}
+
 module.exports = {
     updateUser,
     deleteUser,
@@ -131,4 +162,5 @@ module.exports = {
     getAllUsers,
     getUserStats,
     updateProfilePicture,
+    makeAdmin,
 };

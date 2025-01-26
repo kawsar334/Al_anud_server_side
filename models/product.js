@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
+    name: {  
         type: String,
         required: [true, "Product name is required"],
         trim: true,
@@ -24,8 +24,8 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         required: [true, "Category is required"],
-        enum: ["Electronics", "Clothing", "Home", "Books", "Sports", "Other"], 
-        default: "Other"
+        // enum: ["Electronics", "Clothing", "Home", "Books", "Sports", "Other"], 
+        // default: "Other"
     },
     stock: {
         type: Number, 
